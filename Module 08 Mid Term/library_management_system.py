@@ -70,38 +70,46 @@ def menu():
         print('1. View All Books')
         print('2. Borrow Book')
         print('3. Return Book')
-        print('4. Exit')
+        print('4. Exit\n')
 
-        ch = int(input('\nEnter your choice: '))
-        if ch==1:
-            Library.display_all_books()
-        elif ch==2:
-            bookID=int(input('\nEnter Book ID to borrow: '))
-            target=None
-            for book in Library.book_list:
-                if book.book_id == bookID:
-                    target=book
-                    break
-            if target is not None:
-                print(target.borrow_book())
+        try:
+            ch = int(input('Enter your choice: '))
+            if ch==1:
+                Library.display_all_books()
+            elif ch==2:
+                try:
+                    bookID=int(input('\nEnter Book ID to borrow: '))
+                    target=None
+                    for book in Library.book_list:
+                        if book.book_id == bookID:
+                            target=book
+                            break
+                    if target is not None:
+                        print(target.borrow_book())
+                    else:
+                        print('\nInvalid book ID')
+                except ValueError:
+                    print('\nPlease enter a valid number!!!')        
+            elif ch==3:
+                try:
+                    bookID=int(input('\nEnter Book ID to return: '))
+                    target=None
+                    for book in Library.book_list:
+                        if book.book_id == bookID:
+                            target=book
+                            break
+                    if target is not None:
+                        print(target.return_book())
+                    else:
+                        print('\nInvalid book ID')
+                except ValueError:
+                    print('\nPlease enter a valid number!!!')
+            elif ch==4:
+                print('\nExiting the Library system...')
+                break
             else:
-                print('Invalid book ID')
-        elif ch==3:
-            bookID=int(input('\nEnter Book ID to return: '))
-            target=None
-            for book in Library.book_list:
-                if book.book_id == bookID:
-                    target=book
-                    break
-            if target is not None:
-                print(target.return_book())
-            else:
-                print('Invalid book ID')
-        elif ch==4:
-            print('\nExiting the Library system...')
-            break
-        else:
-            print('\nInvalid choice! Choose an option between 1 to 4.')
-
+                print('\nInvalid choice! Choose an option between 1 to 4.')
+        except ValueError:
+            print('\nPlease enter a valid number!!!')
 
 menu()
